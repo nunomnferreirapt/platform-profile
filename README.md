@@ -50,7 +50,7 @@ check: 1 violation(s), 1 warning(s)
 
 ## Why this exists
 
-This pattern comes from an AI operating system that ran a company's go-to-market, described in [ai-operated-growth-engine](https://github.com/nunomnferreirapt/ai-operated-growth-engine). Its agents were only allowed to cite a crawled, git-tracked copy of what the company publicly said about itself, never their own output. When the public pages changed, the drift showed up as a diff and the agents' pages were checked again. This repository is a fresh, generic rebuild of that one layer; the original stayed with the company it was built for.
+This pattern comes from an AI operating system built for a company's go-to-market, described in [ai-operated-growth-engine](https://github.com/nunomnferreirapt/ai-operated-growth-engine). Its agents were only allowed to cite a crawled, git-tracked copy of what the company publicly said about itself, never their own output. When the public pages changed, the drift showed up as a diff and the agents' pages were checked again. This repository is a fresh, generic rebuild of that one layer; the original stayed with the company it was built for.
 
 ## Requirements
 
