@@ -1,6 +1,6 @@
 # platform-profile
 
-Crawl a company's public pages into one git-tracked knowledge profile that AI agents can cite instead of guessing.
+A git-tracked knowledge profile of what a company publicly says, kept current and diffed, so AI agents cite it instead of guessing.
 
 ## Preview
 
