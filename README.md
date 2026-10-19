@@ -48,6 +48,8 @@ check: 1 violation(s), 1 warning(s)
 4. `check` verifies that every page under `profile/` cites only existing files under `sources/`. Exit code 1 on violations.
 5. `report` prints pages, last crawl, pending drift, and the citation health of each profile page.
 
+**Constraints:** same domain only, 50 pages, depth 2, robots.txt respected, all adjustable in `profile.yaml`. No model call anywhere: crawl, diff and check are plain Python.
+
 ## Why this exists
 
 I built the original so our agents would cite what the company actually published, never their own output: a crawled, git-tracked copy of the public pages, where a changed page shows up as a diff and the pages that cite it get checked again. This is that one layer, rebuilt from scratch in October 2026 with no files from the original, on an invented site. The system it came from is described in [ai-operated-growth-engine](https://github.com/nunomnferreirapt/ai-operated-growth-engine).
@@ -80,7 +82,7 @@ uv run platform-profile report <profile-dir>
 
 Pages in `profile/` cite a source with `[source: sources/<slug>.md]`. A paragraph tagged `[kind: pricing]` or `[kind: feature]` that cites only `website` sources gets a warning, because `precedence` says docs and support win. A Claude Code skill that writes these pages lives in [`skill/`](skill/README.md).
 
-## How it works
+## How the manifest decides what runs
 
 `manifest.json` maps each URL to the sha256 of its markdown text, the fetch time and the file path. Each crawl hashes the text again: an unchanged hash leaves the file alone, a changed hash rewrites it and keeps the old text under `.prev/`, and an unreachable page is removed. The previous manifest becomes `manifest.prev.json`, so `diff` compares the two and shows a unified diff per changed page. Commit the folder to git and the full history is there.
 
