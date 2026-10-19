@@ -42,6 +42,23 @@ check: 1 violation(s), 1 warning(s)
 
 ## What it does
 
+```mermaid
+%%{init: {"flowchart": {"wrappingWidth": 600, "nodeSpacing": 30, "rankSpacing": 32}}}%%
+flowchart TB
+    SEED(["profile.yaml: the seed URLs, their kind, the precedence, the crawl limits"]):::human
+    SEED --> CR["crawl: same domain, within limits, robots respected"]:::sys
+    CR --> SRC["sources/: one clean markdown page per URL, with url, title, fetch time, hash on top"]:::out
+    CR --> MAN["manifest.json: a hash per page; unchanged skips, changed rewrites, gone removes"]:::sys
+    MAN --> DIFF["diff: what changed since the previous crawl, as a unified diff"]:::out
+    SRC --> SK["`**Claude skill** writes profile/ pages, citing a source after every claim`"]:::sys
+    SK --> PROF["profile/: what the company says, every paragraph cited"]:::out
+    PROF --> CHK["check: every citation exists, nothing outside sources/, precedence warnings"]:::sys
+    CHK --> P(["A person reads the diff and the check, commits the folder"]):::human
+    classDef sys fill:#1f3a5f,stroke:#7aa2d8,color:#ffffff
+    classDef human fill:#6b4514,stroke:#e0a95a,color:#ffffff
+    classDef out fill:#1e4d3a,stroke:#6fcf97,color:#ffffff
+```
+
 1. `init` creates a profile folder: `profile.yaml`, empty `sources/` and `profile/`, `manifest.json`.
 2. `crawl` fetches the seed URLs and same-domain links within limits and writes each page as clean markdown to `sources/<slug>.md`, with url, title, fetch time and sha256 on top.
 3. `diff` prints what changed since the previous crawl: new, changed (with a unified diff) and removed pages.
@@ -52,7 +69,7 @@ check: 1 violation(s), 1 warning(s)
 
 ## Why this exists
 
-I built the original so our agents would cite what the company actually published, never their own output: a crawled, git-tracked copy of the public pages, where a changed page shows up as a diff and the pages that cite it get checked again. This is that one layer, rebuilt from scratch in October 2026 with no files from the original, on an invented site. The system it came from is described in [ai-operated-growth-engine](https://github.com/nunomnferreirapt/ai-operated-growth-engine).
+I built the original so our agents would cite what the company actually published, never their own output: a crawled, git-tracked copy of the public pages, where a changed page shows up as a diff and the pages that cite it get checked again. This is that one layer, rebuilt from scratch in October 2026 with no files from the original, on an invented site. The original is the knowledge substrate in [How it was run](https://github.com/nunomnferreirapt/ai-operated-growth-engine/blob/main/evidence/case-studies/how-it-was-run-the-ai-operating-system.md), and the mechanism is [Manifest-driven incremental runs](https://github.com/nunomnferreirapt/ai-operated-growth-engine/blob/main/architecture/patterns/manifest-driven-incremental.md), both in the showcase it came from.
 
 ## Requirements
 
