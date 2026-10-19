@@ -80,6 +80,8 @@ uv run platform-profile report <profile-dir>
 
 `init` guesses a `kind` for each seed (`docs`, `support`, `website`). Edit `profile.yaml` to correct it, change `precedence`, or adjust the crawl limits (same domain only, 50 pages, depth 2, robots.txt respected).
 
+The `sources/` folder is also the input for the other work tools: [article-pipeline](https://github.com/nunomnferreirapt/article-pipeline) takes its files as the only allowed sources for an article, and [source-to-docs](https://github.com/nunomnferreirapt/source-to-docs) can read them as clean sources for a docs gap pass.
+
 Pages in `profile/` cite a source with `[source: sources/<slug>.md]`. A paragraph tagged `[kind: pricing]` or `[kind: feature]` that cites only `website` sources gets a warning, because `precedence` says docs and support win. A Claude Code skill that writes these pages lives in [`skill/`](skill/README.md).
 
 ## How the manifest decides what runs
