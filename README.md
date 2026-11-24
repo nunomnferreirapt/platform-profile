@@ -59,6 +59,8 @@ flowchart TB
     classDef out fill:#1e4d3a,stroke:#6fcf97,color:#ffffff
 ```
 
+<img src="assets/diagram-key.svg" alt="Key: rounded amber, a person decides or acts; navy, a step a system runs; Claude in bold, a step Claude runs; green, what comes out">
+
 1. `init` creates a profile folder: `profile.yaml`, empty `sources/` and `profile/`, `manifest.json`.
 2. `crawl` fetches the seed URLs and same-domain links within limits and writes each page as clean markdown to `sources/<slug>.md`, with url, title, fetch time and sha256 on top.
 3. `diff` prints what changed since the previous crawl: new, changed (with a unified diff) and removed pages.
